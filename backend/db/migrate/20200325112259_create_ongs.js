@@ -8,7 +8,8 @@ exports.up = function(knex) {
     table.string('whatsapp', 255).notNullable();
     table.string('city', 255).notNullable();
     table.string('uf', 2).notNullable();
-    table.timestamps();
+
+    table.timestamps(false, true);
   });
 };
 

@@ -11,7 +11,7 @@ exports.up = function(knex) {
 
     table.foreign('ong_id').references('id').inTable('ongs')
 
-    table.timestamps();
+    table.timestamps(false, true);
   });
 };
 

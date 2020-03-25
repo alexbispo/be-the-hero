@@ -6,9 +6,9 @@
 
 - As ONG's user, I can log out.
 
-- As ONG's user, I can sign up a ONG.
+- ~~As ONG's user, I can sign up a ONG.~~
 
-- As ONG's user, I can register a new incident.
+- ~~As ONG's user, I can register a new incident.~~
 
 - As ONG's user, I can delete an incident.
 
