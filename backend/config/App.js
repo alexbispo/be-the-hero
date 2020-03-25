@@ -1,6 +1,8 @@
 const express = require('express');
 const Routes =  require('./Routes');
 
+const DBConnection = require('./DBConnection');
+
 module.exports = class App {
 
   constructor() {
@@ -10,7 +12,8 @@ module.exports = class App {
 
     this.app.use(express.json());
 
-    this.routes = new Routes(this.app);
+    const dbConnection = new DBConnection();
+    const _routes = new Routes(this.app, dbConnection.getConnection());
   }
 
   start() {
