@@ -27,12 +27,12 @@ module.exports = class IncidentsController {
       const ongId = req.headers.authorization;
 
       const [id] = await this.dbConnetion('incidents')
-                  .insert({
-                    ong_id: ongId,
-                    title,
-                    description,
-                    value
-                  });
+        .insert({
+          ong_id: ongId,
+          title,
+          description,
+          value
+        });
 
       return resp.json({id});
     } catch (error) {
