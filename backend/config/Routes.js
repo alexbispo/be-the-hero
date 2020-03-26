@@ -1,6 +1,7 @@
 const OngsController = require('../app/controllers/OngsController');
 const IncidentsController = require('../app/controllers/IncidentsController');
 const ProfileController = require('../app/controllers/ProfileController');
+const SessionController = require('../app/controllers/SessionController');
 
 module.exports = class Routes {
 
@@ -17,5 +18,8 @@ module.exports = class Routes {
 
     const profileController = new ProfileController(dbConnection);
     app.get('/profile', profileController.index);
+
+    const sessionController = new SessionController(dbConnection);
+    app.post('/sessions', sessionController.create);
   }
 }

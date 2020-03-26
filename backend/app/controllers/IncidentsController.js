@@ -10,8 +10,25 @@ module.exports = class IncidentsController {
 
   async index(req, resp) {
     try {
+      const { page = 1 } = req.query;
+
+      const step = 5;
+      const start = (page -1) * step;
+
+      const [count] = await this.dbConnetion('incidents')
+        .count();
+
       const incidents =  await this.dbConnetion('incidents')
-        .select('*');
+        .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
+        .limit(5)
+        .offset(start)
+        .select(['incidents.*',
+          'ongs.name',
+          'ongs.email',
+          'ongs.whatsapp',
+          'ongs.city', 'ongs.uf']);
+
+      resp.header('X-Total-Count', count['count(*)']);
 
       return resp.json(incidents);
     } catch (error) {

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const Routes =  require('./Routes');
 
 const DBConnection = require('./DBConnection');
@@ -7,6 +8,8 @@ module.exports = class App {
 
   constructor() {
     this.app = express();
+
+    this.app.use(cors());
 
     this.app.set('port', 3333);
 
