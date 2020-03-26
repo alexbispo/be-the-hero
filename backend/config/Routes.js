@@ -11,5 +11,7 @@ module.exports = class Routes {
     const incidentsController = new IncidentsController(dbConnection);
     app.post('/incidents', incidentsController.create);
     app.get('/incidents', incidentsController.index);
+    app.delete('/incidents/:id', incidentsController.destroy);
+    app.get('/incidents/:id', incidentsController.show);
   }
 }

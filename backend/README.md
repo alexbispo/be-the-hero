@@ -10,7 +10,9 @@
 
 - ~~As ONG's user, I can register a new incident.~~
 
-- As ONG's user, I can delete an incident.
+- ~~As ONG's user, I can delete an incident.~~
+
+- ~~As ONG's user, I can see an incident's detail.~~
 
 - As ONG's user or hero user, I can list all incidents to especific ONG.
 
