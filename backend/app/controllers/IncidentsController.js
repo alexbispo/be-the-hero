@@ -11,7 +11,7 @@ module.exports = class IncidentsController {
   async index(req, resp) {
     try {
       const incidents =  await this.dbConnetion('incidents')
-      .select('*');
+        .select('*');
 
       return resp.json(incidents);
     } catch (error) {
@@ -34,7 +34,6 @@ module.exports = class IncidentsController {
                     value
                   });
 
-
       return resp.json({id});
     } catch (error) {
       console.error(error);
@@ -50,7 +49,11 @@ module.exports = class IncidentsController {
         .where('id', '=', id)
         .select('*');
 
-      resp.json(result);
+      if (!result) {
+        return resp.status(404).end();
+      }
+
+      return resp.json(result);
     } catch (error) {
       console.error(error);
       resp.status(500).end();
@@ -62,14 +65,22 @@ module.exports = class IncidentsController {
       const { id } = req.params;
       const ong_id = req.headers.authorization;
 
-      const result = await this.dbConnetion('incidents')
-      .where('id', '=', id)
-      .where('ong_id', '=', ong_id)
-      .del();
+      const [incident] = await this.dbConnetion('incidents')
+        .where('id', '=', id)
+        .select('ong_id')
 
-      if (result == 0) {
+      if (!incident) {
         return resp.status(404).end();
       }
+
+      if (incident.ong_id != ong_id) {
+        return resp.status(401).json({  error: 'Operation not peermitted.' })
+      }
+
+      await this.dbConnetion('incidents')
+        .where('id', '=', id)
+        .where('ong_id', '=', ong_id)
+        .del();
 
       return resp.status(204).end();
     } catch (error) {
