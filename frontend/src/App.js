@@ -1,30 +1,14 @@
 import React from 'react';
+import Logon from './pages/Logon';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {name: 'Man', value: ''};
-  }
+import './global.css'
 
-  setName = () => {
-    this.setState({
-      name: this.state.value
-    });
-  }
-
-  handleInputChange = (event) => {
-    this.setState({value: event.target.value});
-  }
+export default class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <input type="text" onKeyUp={this.setName} value={this.state.value} onChange={this.handleInputChange}/>
-        <h1>Hello {this.state.name}!</h1>
-    </div>
+      <Logon />
     );
   }
-  
-}
 
-export default App;
+}
