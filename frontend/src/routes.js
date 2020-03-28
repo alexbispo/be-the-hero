@@ -20,6 +20,14 @@ class PrivateRoute extends React.Component {
   }
 }
 
+class NotFound extends React.Component {
+
+  render() {
+    return <h1>Page Not Found!</h1>
+  }
+}
+
+
 export default class Routes extends React.Component {
 
   render() {
@@ -30,6 +38,8 @@ export default class Routes extends React.Component {
           <Route path="/register" component={Register} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/incidents/new" component={NewIncident} />
+
+          <Route path="*" component={NotFound} />
         </Switch>
       </BrowserRouter>
     );
