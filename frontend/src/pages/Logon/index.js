@@ -55,7 +55,7 @@ export default class Logon extends React.Component {
 
             <Link to="/register" className="back-link">
               <FiLogIn size={16} color="#E02041" />
-              Voltar para home
+              Não tenho cadastro
             </Link>
           </form>
         </section>

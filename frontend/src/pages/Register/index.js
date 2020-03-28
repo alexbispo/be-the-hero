@@ -66,7 +66,7 @@ export default class Register extends React.Component {
 
             <Link to="/" className="back-link">
               <FiArrowLeft size={16} color="#E02041" />
-              Não tenho cadastro
+              Voltar para home
             </Link>
           </section>
 
