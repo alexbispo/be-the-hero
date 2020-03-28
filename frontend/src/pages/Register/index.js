@@ -19,6 +19,14 @@ export default class Register extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (localStorage.getItem('ongId')) {
+      this.props.history.push('/profile');
+      return;
+    }
+
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
 

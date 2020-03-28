@@ -19,6 +19,13 @@ export default class NewIncident extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (!localStorage.getItem('ongId')) {
+      this.props.history.push('/');
+      return;
+    }
+  }
+
   handleTitleChanges = (event) => {
     this.setState({title: event.target.value});
   }

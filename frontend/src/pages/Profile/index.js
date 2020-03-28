@@ -15,12 +15,16 @@ export default class Profile extends React.Component {
       ongName: '',
       ongId: '',
       incidents: []
-    }
+    };
   }
 
   async componentDidMount() {
     const ongName = localStorage.getItem('ongName');
     const ongId = localStorage.getItem('ongId');
+
+    if (!ongId) {
+      return this.props.history.push('/');
+    }
 
     const result = await api.get('/profile', {headers: {'Authorization': ongId}});
 

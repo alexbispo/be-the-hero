@@ -17,6 +17,12 @@ export default class Logon extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (localStorage.getItem('ongId')) {
+      return this.props.history.push('/profile');
+    }
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
     try {
