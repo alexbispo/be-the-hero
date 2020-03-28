@@ -2,10 +2,57 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
+import api from '../../services/api';
+
 import logoImg from '../../assets/logo.svg';
 import './styles.css';
 
 export default class Register extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      whatsapp: '',
+      city: '',
+      uf: ''
+    };
+  }
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await api.post('/ongs', this.state);
+
+      alert(`Seu ID é: ${response.data.id}`);
+
+      this.props.history.push('/');
+    } catch (error) {
+      console.error(error);
+      alert('Um erro aconteceu, tente novamente mais tarde!');
+    }
+  }
+
+  handleChangeName = (event) => {
+    this.setState({name: event.target.value});
+  }
+
+  handleChangeEmail = (event) => {
+    this.setState({email: event.target.value});
+  }
+
+  handleChangeWhatsApp = (event) => {
+    this.setState({whatsapp: event.target.value});
+  }
+
+  handleChangeCity = (event) => {
+    this.setState({city: event.target.value});
+  }
+
+  handleChangeUf = (event) => {
+    this.setState({uf: event.target.value});
+  }
 
   render() {
     return (
@@ -23,14 +70,14 @@ export default class Register extends React.Component {
             </Link>
           </section>
 
-          <form>
-            <input type="text" placeholder="Nome da ONG"/>
-            <input type="email" placeholder="E-mail"/>
-            <input type="text" placeholder="WhatsApp"/>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" name="name" placeholder="Nome da ONG" value={this.state.name} onChange={this.handleChangeName}/>
+            <input type="email" placeholder="E-mail" value={this.state.email} onChange={this.handleChangeEmail} />
+            <input type="text" placeholder="WhatsApp" value={this.state.whatsapp} onChange={this.handleChangeWhatsApp} />
 
             <div className="input-group">
-              <input type="text" placeholder="Cidade"/>
-              <input type="text" placeholder="UF" style={{ width: 80 }} />
+              <input type="text" placeholder="Cidade" value={this.state.city} onChange={this.handleChangeCity} />
+              <input type="text" placeholder="UF" style={{ width: 80 }} value={this.state.uf} onChange={this.handleChangeUf} />
             </div>
 
             <button type="submit" className="button">Cadastrar</button>
