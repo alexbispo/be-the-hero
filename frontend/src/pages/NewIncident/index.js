@@ -2,10 +2,56 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
+import api from '../../services/api';
+
 import logoImg from '../../assets/logo.svg';
 import './styles.css';
 
 export default class NewIncident extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: '',
+      description: '',
+      value: ''
+    };
+  }
+
+  handleTitleChanges = (event) => {
+    this.setState({title: event.target.value});
+  }
+
+  handleDescriptionChanges = (event) => {
+    this.setState({description: event.target.value});
+  }
+
+  handleValueChanges = (event) => {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const ongId = localStorage.getItem('ongId');
+
+    try {
+      await api.post('/incidents', this.state, {
+        headers: {
+          'Authorization': ongId
+        }
+      });
+
+      alert('Novo caso cadastrado com sucesso!');
+
+      this.props.history.push('/profile');
+
+    } catch (error) {
+      console.error(error);
+      alert('Ocorreu um erro, por favor, tente novamente mais tarde.');
+    }
+  }
 
   render() {
     return (
@@ -23,11 +69,21 @@ export default class NewIncident extends React.Component {
             </Link>
           </section>
 
-          <form>
-            <input type="text" placeholder="Título do caso"/>
-            <textarea placeholder="Descrição"/>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text"
+              placeholder="Título do caso"
+              value={this.state.title}
+              onChange={this.handleTitleChanges}/>
 
-            <input type="text" placeholder="Valor em reais"/>
+            <textarea
+              placeholder="Descrição"
+              value={this.state.description}
+              onChange={this.handleDescriptionChanges} />
+
+            <input type="text"
+              placeholder="Valor em reais"
+              value={this.state.value}
+              onChange={this.handleValueChanges}/>
 
             <button type="submit" className="button">Cadastrar</button>
           </form>
